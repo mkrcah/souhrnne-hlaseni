@@ -1,0 +1,25 @@
+# the best way to fill these in is to once generate a report
+# at  https://adisspr.mfcr.cz/dpr/adis/idpr_epo/epo2/uvod/vstup_expert.faces
+# and introspect the XML to fill in these data
+
+# basics
+firstname: John
+lastname: Doe
+title: Bc.
+phoneNumber: 725000111
+
+# address
+city: Praha
+streetName: Vaclávské námestí
+streetNumber: 1
+streetOrientationNumber: 1
+zipCode: 10000
+country: Česká Republika
+
+# accounting details (I didn't dare to translate these two from the XML file.)
+vatNo: 801010000 # numeric, without country code
+ufoCode: 451
+pracufo: 2004
+
+
+

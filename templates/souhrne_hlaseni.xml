@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Pisemnost nazevSW="EPO MF ČR" verzeSW="41.24.2">
+    <DPHSHV verzePis="02.01">
+        <VetaD
+                k_uladis="DPH"
+                dokument="SHV"
+                rok="{{ period.year }}"
+                mesic="{{ period.month }}"
+                shvies_forma="R"
+                d_poddp="{{ signed_on }}"
+                />
+        <VetaP
+                c_ufo="{{ static.ufoCode }}"
+                c_pracufo="{{ static.pracufo }}"
+                dic="{{ static.vatNo }}"
+                typ_ds="F"
+                prijmeni="{{ static.lastname }}"
+                jmeno="{{ static.firstname }}"
+                titul="{{ static.title }}"
+                naz_obce="{{ static.city }}"
+                ulice="{{ static.streetName }}"
+                c_pop="{{ static.streetNumber }}"
+                c_orient="{{ static.streetOrientationNumber }}"
+                psc="{{ static.zipCode }}"
+                sest_prijmeni="{{  static.lastname }}"
+                sest_jmeno="{{ static.firstname }}"
+                sest_telef="{{  static.phoneNumber }}"
+                stat="{{ static.country | upper }}"/>
+        {% for line in lines %}
+            <VetaR
+                por_c_stran="1"
+                c_rad="{{ line['line_no'] }}"
+                k_stat="{{ line['vat_country_code'] }}"
+                c_vat="{{ line['vat_numeric_part'] }}"
+                k_pln_eu="{{ line['supply_code'] }}"
+                pln_pocet="{{ line['invoices_count'] }}"
+                pln_hodnota="{{ line['invoiced_total'] }}"/>
+            </DPHSHV>
+        {% endfor %}
+</Pisemnost>
