@@ -1,3 +1,4 @@
+import math
 import os
 import sys
 from datetime import datetime, date
@@ -42,7 +43,8 @@ def invoices_to_report_lines(invoices):
 
     def extract_total_for(client_vat_no):
         # the report needs values in CZK
-        return sum(map(lambda i: float(i['native_total']), extract_invoices_for(client_vat_no)))
+        sum_raw = sum(map(lambda i: float(i['native_total']), extract_invoices_for(client_vat_no)))
+        return math.ceil(sum_raw)   # the form requires to round up
 
     lines = [{'vat_numeric_part': client_vat_no[2:],
               'vat_country_code': client_vat_no[0:2],

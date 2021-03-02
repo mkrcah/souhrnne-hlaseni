@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+set -u # fail on unset variable
+set -o pipefail # fail on pipe error
+set -e  # fail on error
+
 # where generated reports will be stored
 REPORTS_DIR=generated_reports
 

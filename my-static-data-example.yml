@@ -12,14 +12,14 @@ phoneNumber: 725000111
 city: Praha
 streetName: Vaclávské námestí
 streetNumber: 1
-streetOrientationNumber: 1
+streetOrientationNumber: 2
 zipCode: 10000
 country: Česká Republika
 
 # accounting details (I didn't dare to translate these two from the XML file.)
 vatNo: 801010000 # numeric, without country code
-ufoCode: 451
-pracufo: 2004
+ufoCode: 450
+pracufo: 2000
 
 
 
