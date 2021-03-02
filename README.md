@@ -7,13 +7,13 @@ The Python script fetches invoices with [Fakturoid v2 API](https://fakturoid.doc
 and generates an XML report which can be [uploaded to 
 Ministry of Finance]( https://adisspr.mfcr.cz/dpr/adis/idpr_epo/epo2/uvod/vstup_expert.faces)  
 
-# Features
+## Features
 - summing up 2+ invoices for the same client
 - generating lines for multiple clients
 - proper numerical rounding of the line total
 - exits  if no invoices found 
 
-# NOT supported
+## NOT supported
 - using supply code ("kod plneni") other than 3
 - having more than 21 clients, leading to multipage report
 - credit notes 
@@ -33,7 +33,7 @@ Ministry of Finance]( https://adisspr.mfcr.cz/dpr/adis/idpr_epo/epo2/uvod/vstup_
     $ python3 main.py --year 2021 --month 3 --path-to-static-details=./my-static-data.yml > dphsh-2021-03.xml
     ```
 
-# Example output
+## Example output
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -77,7 +77,8 @@ Ministry of Finance]( https://adisspr.mfcr.cz/dpr/adis/idpr_epo/epo2/uvod/vstup_
 </Pisemnost>
 
 ```
-# Using with fzf
+
+## Using with fzf
 
 You can also run the script wrapped with [fzf](https://github.com/junegunn/fzf) to select the month:
 
