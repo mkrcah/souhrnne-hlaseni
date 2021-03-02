@@ -35,6 +35,6 @@
                 k_pln_eu="{{ line['supply_code'] }}"
                 pln_pocet="{{ line['invoices_count'] }}"
                 pln_hodnota="{{ line['invoiced_total'] }}"/>
-            </DPHSHV>
         {% endfor %}
+    </DPHSHV>
 </Pisemnost>

@@ -89,6 +89,9 @@ def main(year, month, fakturoid_api_key, fakturoid_email, fakturoid_slug, path_t
         email=fakturoid_email,
         apikey=fakturoid_api_key)
     invoices = get_all_invoices_for(period, auth)
+    if len(invoices) == 0:
+        print('No invoices found, quitting', file=sys.stderr)
+        sys.exit(1)
     report_lines = invoices_to_report_lines(invoices)
     static_details = read_static_details(path_to_static_details)
     generate_report(period, report_lines, static_details)

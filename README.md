@@ -7,15 +7,16 @@ The Python script fetches invoices with [Fakturoid v2 API](https://fakturoid.doc
 and generates an XML report which can be [uploaded to 
 Ministry of Finance]( https://adisspr.mfcr.cz/dpr/adis/idpr_epo/epo2/uvod/vstup_expert.faces)  
 
-# Supported use cases
+# Features
 - summing up 2+ invoices for the same client
 - generating lines for multiple clients
-- proper numerical rounding of the line total 
+- proper numerical rounding of the line total
+- exits  if no invoices found 
 
-# Unsupported use cases
+# NOT supported
 - using supply code ("kod plneni") other than 3
-- having tens of clients, leading to multipage report
-- credit nootes 
+- having more than 21 clients, leading to multipage report
+- credit notes 
 
 ### How to run
 
