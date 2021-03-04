@@ -1,5 +1,7 @@
 # Souhrnné hlášení VIES z Fakturoid 
 
+(Background info at https://marcel.is/tax-reports/) 
+
 Generate XML with "souhrne hlaseni" for a given month 
 based on invoices from [Fakturoid](https://www.fakturoid.cz/).
 
