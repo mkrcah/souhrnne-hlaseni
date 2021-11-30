@@ -96,6 +96,7 @@ def main(year, month, fakturoid_api_key, fakturoid_email, fakturoid_slug, path_t
     static_details = read_static_details(path_to_static_details)
     generate_report(period, report_lines, static_details)
     print('Now upload the report via https://adisspr.mfcr.cz/dpr/adis/idpr_epo/epo2/uvod/vstup_expert.faces', file=sys.stderr)
+	print('Google Drive here: https://drive.google.com/drive/u/1/folders/1csXvJGh8pjh1l2fMJGTHmjZPJUzpIhLo')
 
 
 if __name__ == '__main__':
