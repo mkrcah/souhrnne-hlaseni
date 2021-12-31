@@ -10,6 +10,12 @@ import requests
 from requests.auth import HTTPBasicAuth
 import click
 
+
+def log(*args, **kwargs):
+    """Log to stderr so that the stdout contains only the generated XML"""
+    print(*args, file=sys.stderr, **kwargs)
+
+
 """We are interested only in invoices with this 'kod plneni' """
 SUPPLY_CODE = 3
 
@@ -32,6 +38,7 @@ def get_all_invoices_for(period: Period, auth: FakturoidAuth):
     invoices = list(filter(lambda i: has_relevant_supply_code(i)
                                      and is_issued_in_period(i),
                            invoices_all))
+    log(f'Found {len(invoices)} invoice(s) in Fakturoid')
     return invoices
 
 
@@ -44,7 +51,7 @@ def invoices_to_report_lines(invoices):
     def extract_total_for(client_vat_no):
         # the report needs values in CZK
         sum_raw = sum(map(lambda i: float(i['native_total']), extract_invoices_for(client_vat_no)))
-        return math.ceil(sum_raw)   # the form requires to round up
+        return math.ceil(sum_raw)  # the form requires to round up
 
     lines = [{'vat_numeric_part': client_vat_no[2:],
               'vat_country_code': client_vat_no[0:2],
@@ -53,6 +60,8 @@ def invoices_to_report_lines(invoices):
               'supply_code': SUPPLY_CODE,
               'line_no': index
               } for index, client_vat_no in enumerate(clients_vat_no, start=1)]
+
+    log('Found the following report lines: ', lines)
     return lines
 
 
@@ -64,7 +73,7 @@ def read_static_details(filepath):
 def generate_report(period: Period, report_lines, static_details):
     env = Environment(loader=FileSystemLoader('templates'),
                       autoescape=select_autoescape(['xml']),
-                      undefined=StrictUndefined)    # raise error if var undefined
+                      undefined=StrictUndefined)  # raise error if var undefined
 
     template = env.get_template('souhrne_hlaseni.xml')
     signed_on = date.today().strftime("%d.%m.%Y")
@@ -81,7 +90,8 @@ def generate_report(period: Period, report_lines, static_details):
 @click.option('--fakturoid-api-key', help='Your Fakturoid API key', required=True, type=str)
 @click.option('--fakturoid-email', help='Your Fakturoid email', required=True, type=str)
 @click.option('--fakturoid-slug', help='Your Fakturoid slug', required=True, type=str)
-@click.option('--path-to-static-details', help='Path to an .ini file with your static details', required=True, type=click.Path(exists=True))
+@click.option('--path-to-static-details', help='Path to an .ini file with your static details', required=True,
+              type=click.Path(exists=True))
 def main(year, month, fakturoid_api_key, fakturoid_email, fakturoid_slug, path_to_static_details):
     period = Period(year=year, month=month)
     auth = FakturoidAuth(
@@ -95,8 +105,7 @@ def main(year, month, fakturoid_api_key, fakturoid_email, fakturoid_slug, path_t
     report_lines = invoices_to_report_lines(invoices)
     static_details = read_static_details(path_to_static_details)
     generate_report(period, report_lines, static_details)
-    print('Now upload the report via https://adisspr.mfcr.cz/dpr/adis/idpr_epo/epo2/uvod/vstup_expert.faces', file=sys.stderr)
-	print('Google Drive here: https://drive.google.com/drive/u/1/folders/1csXvJGh8pjh1l2fMJGTHmjZPJUzpIhLo')
+    log('Upload the report via https://adisspr.mfcr.cz/dpr/adis/idpr_epo/epo2/uvod/vstup_expert.faces')
 
 
 if __name__ == '__main__':
